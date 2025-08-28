@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eduwings International Education Fair</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, 
+        rgba(255, 127, 39, 0.1) 0%, 
+        rgba(0, 0, 0, 0.8) 50%, 
+        rgba(255, 127, 39, 0.1) 100%
+      ),
+      url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80') center/cover fixed;
+      min-height: 100vh;
+    }
+
+    /* Moving flags background */
+    .flags-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.1;
+    }
+
+    .floating-flag {
+      position: absolute;
+      width: 40px;
+      height: 30px;
+      border-radius: 4px;
+      animation: float 15s infinite linear;
+    }
+
+    .floating-flag:nth-child(1) {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .floating-flag:nth-child(2) {
+      top: 40%;
+      left: 80%;
+      animation-delay: 3s;
+    }
+
+    .floating-flag:nth-child(3) {
+      top: 60%;
+      left: 20%;
+      animation-delay: 6s;
+    }
+
+    .floating-flag:nth-child(4) {
+      top: 80%;
+      left: 70%;
+      animation-delay: 9s;
+    }
+
+    @keyframes float {
+      0% { transform: translateX(-100px) rotate(0deg); }
+      100% { transform: translateX(calc(100vw + 100px)) rotate(360deg); }
+    }
+
+    /* Header */
+    .header {
+      background: rgba(0, 0, 0, 0.8);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #FF7F27;
+      letter-spacing: 2px;
+    }
+
+    .contact {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .contact:hover {
+      color: #FF7F27;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Event Card */
+    .event-card {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      margin: 2rem auto;
+      max-width: 800px;
+    }
+
+    .event-title {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #000;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .event-title .highlight {
+      color: #FF7F27;
+    }
+
+    .event-date {
+      background: #FF7F27;
+      color: white;
+      font-size: 1.3rem;
+      font-weight: bold;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      display: inline-block;
+      margin: 1.5rem 0;
+    }
+
+    .event-details {
+      margin: 2rem 0;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .detail-row .icon {
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      color: #FF7F27;
+      width: 30px;
+    }
+
+    /* Countries */
+    .countries-section {
+      margin: 2rem 0;
+    }
+
+    .countries-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .countries {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .country-flag {
+      width: 60px;
+      height: 45px;
+      border-radius: 8px;
+      border: 3px solid #FF7F27;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .country-flag:hover {
+      transform: scale(1.1);
+    }
+
+    .description {
+      font-size: 1.1rem;
+      color: #555;
+      margin: 1.5rem 0;
+      line-height: 1.6;
+    }
+
+    /* Register Button */
+    .register-btn {
+      background: #FF7F27;
+      color: white;
+      font-size: 1.3rem;
+      font-weight: bold;
+      padding: 1.2rem 3rem;
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 2rem;
+      box-shadow: 0 8px 20px rgba(255, 127, 39, 0.4);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .register-btn:hover {
+      background: #e66a1f;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(255, 127, 39, 0.6);
+    }
+
+    /* Footer */
+    .footer {
+      background: #000;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+
+    .footer-contact {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-contact a {
+      color: #FF7F27;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .footer-contact a:hover {
+      color: white;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav {
+        padding: 0 1rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+
+      .event-card {
+        padding: 2rem 1rem;
+      }
+
+      .event-title {
+        font-size: 2rem;
+      }
+
+      .event-date {
+        font-size: 1.1rem;
+        padding: 0.6rem 1.5rem;
+      }
+
+      .detail-row {
+        font-size: 1rem;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .detail-row .icon {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+      }
+
+      .countries {
+        gap: 0.8rem;
+      }
+
+      .country-flag {
+        width: 50px;
+        height: 38px;
+      }
+
+      .register-btn {
+        font-size: 1.1rem;
+        padding: 1rem 2rem;
+      }
+
+      .floating-flag {
+        width: 30px;
+        height: 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .event-title {
+        font-size: 1.5rem;
+      }
+
+      .description {
+        font-size: 1rem;
+      }
+
+      .country-flag {
+        width: 45px;
+        height: 34px;
+      }
+
+      .register-btn {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Moving Flags Background -->
+  <div class="flags-bg">
+    <img class="floating-flag" src="https://flagcdn.com/ca.svg" alt="Canada">
+    <img class="floating-flag" src="https://flagcdn.com/us.svg" alt="USA">
+    <img class="floating-flag" src="https://flagcdn.com/gb.svg" alt="UK">
+    <img class="floating-flag" src="https://flagcdn.com/au.svg" alt="Australia">
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">EDUWINGS</div>
+      <a href="tel:+919501626000" class="contact">📞 +91 95016-26000</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <div class="event-card">
+      <h1 class="event-title">
+        INTERNATIONAL <span class="highlight">EDUCATION FAIR</span>
+      </h1>
+      
+      <div class="event-date">28 SEPTEMBER 2025</div>
+      
+      <div class="event-details">
+        <div class="detail-row">
+          <span class="icon"></span>
+          <span>📅28 Sept, 2025</span>
+        </div>
+        
+        <div class="detail-row">
+          <span class="icon"></span>
+          <span>⏰ 10:00 AM – 5:00 PM</span>
+        </div>
+        
+        <div class="detail-row">
+          <span class="icon"></span>
+          <span style="margin-bottom: 10px;">📍Novotel, Chandigarh Tribune Chowk</span>
+        </div>
+      </div>
+
+      <div class="countries-section">
+        <div class="countries-title">Participating Countries</div>
+        <div class="countries">
+          <img class="country-flag" src="https://flagcdn.com/au.svg" alt="Australia">
+          <img class="country-flag" src="https://flagcdn.com/us.svg" alt="USA">
+          <img class="country-flag" src="https://flagcdn.com/gb.svg" alt="UK">
+          <img class="country-flag" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="Europe">
+          <img class="country-flag" src="https://flagcdn.com/nz.svg" alt="New Zealand">
+          <img class="country-flag" src="https://flagcdn.com/ca.svg" alt="Canada">
+        </div>
+      </div>
+
+      <p class="description">
+        Meet top university representatives from <strong>Canada, UK, USA, Australia, Europe, New Zealand</strong>.<br>
+        Explore courses, scholarships, admissions and more. Open for all students and parents – free entry!
+      </p>
+
+      <a href="https://forms.gle/your-form-link" class="register-btn" target="_blank">
+        REGISTER NOW!
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-contact">
+      📞 <a href="tel:+919501626000">+91 95016-26000</a>
+    </div>
+    <p>&copy; 2025 Eduwings Global - Most Trusted Study Abroad Consultant</p>
+  </footer>
+</body>
+</html>
